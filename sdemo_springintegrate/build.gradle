@@ -1,0 +1,23 @@
+apply plugin :'war'
+apply from: 'https://raw.github.com/akhikhl/gretty/master/pluginScripts/gretty.plugin'   //引入getty
+
+//webAppDirName = 'webfiles'  //指定webapp目录
+war{
+    from 'static'    //将'static'文件夹下的内容添加到war包中。
+}
+
+
+dependencies {
+    compile 'org.springframework:spring-context:4.2.4.RELEASE'
+    compile 'org.springframework:spring-webmvc:4.2.4.RELEASE'
+    
+    runtime 'javax.servlet.jsp.jstl:jstl:1.2'
+    providedCompile  'javax.servlet:javax.servlet-api:3.1.0'
+}
+
+
+
+gretty {
+    httpPort = 9000  
+    contextPath = '' 
+}

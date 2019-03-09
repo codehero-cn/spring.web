@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--只初始化除Controller层的其他层实例；  -->
+<!-- 使用spring管理的bean -->
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<import resource="classpath*:config/spring-import.xml"></import>
+    <import resource="classpath*:config/jdbc-import.xml"></import>
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+    <property name="configLocations">
+    <value>classpath:config/hibernate.cfg.xml</value>
+    </property>
+    </bean>  
+    
+     <!-- 开启组件扫描 -->
+      <!-- 对包中的所有类进行扫描，以完成Bean创建和自动依赖注入的功能 -->
+    <!--
+   <context:component-scan base-package="com.huacaoke" >
+       <context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/> 
+   </context:component-scan>  
+-->
+     
+     <import resource="classpath*:config/hibernate-import.xml"></import>  
+     
+     <!-- 定时任务 -->
+    <!-- <task:annotation-driven/> -->
+    
+     <!-- 启用AspectJ对Annotation的支持 -->
+    <!-- <aop:aspectj-autoproxy/> -->
+    
+    <!-- Transaction Support -->
+   <!--  <tx:advice 
+        <tx:attributes>
+          </tx:attributes>
+    </tx:advice> -->
+    
+    <!--把事务控制在Service层-->
+<!--     <aop:config>
+         <aop:pointcut id="pc" expression="execution(public * com.qding..service.*.*(..))" />
+        <aop:advisor pointcut-ref="pc" advice-ref="useTxAdvice" />
+    </aop:config> -->
+    
+    <!-- 切面配置：Service层方法执行日志 -->
+     <!-- eg<bean class="com.qding.aspect.ServiceVersionLogAspect" /> -->
+    
+    <!-- <bean class="com.qding.aspect.ServiceVersionLogAspect" />  -->
+    
+    <!--memcached客户端配置-->
+    <!-- <bean name="xmemcachedClientBuilder" class="net.rubyeye.xmemcached.XMemcachedClientBuilder">
+     <constructor-arg>
+         <list>
+             <bean class="java.net.InetSocketAddress">
+                 <constructor-arg>
+                     <value>${server_1}</value>
+                 </constructor-arg>
+                 <constructor-arg>
+                     <value>${port_1}</value>
+                 </constructor-arg>
+             </bean>
+         </list>
+     </constructor-arg>
+     <constructor-arg>
+         <list>
+             <value>${priority_1}</value>
+         </list>
+     </constructor-arg>
+     <property name="connectionPoolSize" value="6"/>
+     <property name="commandFactory">
+         <bean class="net.rubyeye.xmemcached.command.BinaryCommandFactory"/>
+     </property>
+     <property name="sessionLocator">
+         <bean class="net.rubyeye.xmemcached.impl.KetamaMemcachedSessionLocator"/>
+     </property>
+     <property name="transcoder">
+         <bean class="net.rubyeye.xmemcached.transcoders.SerializingTranscoder" />
+     </property>
+ </bean>
+
+ <bean name="xmemcachedClient" factory-bean="xmemcachedClientBuilder" factory-method="build" destroy-method="shutdown">
+     <property name="opTimeout" value="3000"/>
+ </bean>
+
+ <bean id="memCacheUtil" class="com.qding.member.common.cache.MemCacheUtil">
+     过期时间  单位秒
+     <property name="expTime" value="3600"/>
+     操作失效时间  单位毫秒
+     <property name="opTime" value="3000"/>
+     <property name="memcachedClient" ref="xmemcachedClient"/>
+ </bean> -->
+    
+    
+</beans>
