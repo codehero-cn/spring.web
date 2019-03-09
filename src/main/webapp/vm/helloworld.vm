@@ -1,0 +1,14 @@
+#set($layout="page.vm")
+#set ($hello = "Velocity")
+<html>
+  <head>
+    <title>Velocity</title>
+  </head>
+ 
+  
+  <b>Hello $hello World  </b>
+  <b>eleven:this is the main page.</b>
+  
+  
+  
+</html>
